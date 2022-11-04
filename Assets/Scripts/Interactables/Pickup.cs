@@ -5,6 +5,7 @@ namespace Interactables
 		public override void Interact()
 		{
 			base.Interact();
+			Destroy(gameObject);
 		}
 	}
 }

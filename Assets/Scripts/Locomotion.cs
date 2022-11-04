@@ -17,9 +17,16 @@ public class Locomotion : MonoBehaviour
 		
 	}
 
-	public void SetDestination(Vector3 hitPoint)
+	public void Move(Vector3 hitPoint)
 	{
 		agent.isStopped = false;
 		agent.SetDestination(hitPoint);
+	}
+
+	public void StopMovement()
+	{
+		agent.isStopped = true;
+		agent.SetDestination(transform.position);
+
 	}
 }

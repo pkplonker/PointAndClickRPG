@@ -19,27 +19,62 @@ namespace Player
 		private RaycastHit hit;
 		private Ray ray;
 		private Locomotion locomotion;
+		private Interactable currentInteractable;
 
 		private void Start()
 		{
 			inputHandler = InputHandler.Instance;
 			playerCamera = FindObjectOfType<Camera>();
 			locomotion = GetComponent<Locomotion>();
-			if(inputHandler==null || playerCamera== null || locomotion == null) Debug.LogError("PlayerWorldClickController: Missing required component");
-		
+			if (inputHandler == null || playerCamera == null || locomotion == null)
+				Debug.LogError("PlayerWorldClickController: Missing required component");
 		}
 
 		private void Update()
 		{
-			if (!inputHandler.leftClick || EventSystem.current.IsPointerOverGameObject()) return;
-			ray = playerCamera.ScreenPointToRay(inputHandler.mousePosition);
-			if (!Physics.Raycast(ray, out hit, maxClickDistance, interactableMask)) return;
-			if (hit.collider.TryGetComponent<Interactable>(out var interactable))
+			if (!inputHandler.leftClick || EventSystem.current.IsPointerOverGameObject())
 			{
-				interactable.Interact();
+				if (currentInteractable != null &&
+				    (transform.position - currentInteractable.transform.position).sqrMagnitude <=
+				    currentInteractable.GetInteractionRange())
+				{
+					Interact();
+				}
+				else locomotion.Move(hit.point);
 			}
-			else locomotion.SetDestination(hit.point);
-		
+			else
+			{
+				ray = playerCamera.ScreenPointToRay(inputHandler.mousePosition);
+				if (!Physics.Raycast(ray, out hit, maxClickDistance, interactableMask))
+				{
+					SetFocus(null);
+					return;
+				}
+				if (hit.collider.TryGetComponent<Interactable>(out var interactable))
+				{
+					SetFocus(interactable);
+					//if ((transform.position - currentInteractable.transform.position).sqrMagnitude <= currentInteractable.GetInteractionRange()) Interact();
+					
+				}
+				else
+				{
+					SetFocus(null);
+					locomotion.Move(hit.point);
+				}
+			}
+		}
+
+		private void SetFocus(Interactable interactable)
+		{
+			if (currentInteractable != null) currentInteractable.Defocus(this);
+			currentInteractable = interactable;
+			if(currentInteractable!= null) currentInteractable.Focus(this);
+		}
+
+		private void Interact()
+		{
+			locomotion.StopMovement();
+			currentInteractable.Interact();
 		}
 	}
 }

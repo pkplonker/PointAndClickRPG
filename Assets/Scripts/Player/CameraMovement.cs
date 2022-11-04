@@ -46,8 +46,6 @@ public class CameraMovement : MonoBehaviour
 	private void ChangeScroll()
 	{
 		var amount = inputHandler.mouseScroll;
-		Debug.Log(amount);
-
 		currentCameraZoom -= amount * zoomSpeed * Time.deltaTime;
 		currentCameraZoom = Mathf.Clamp(currentCameraZoom, minZoom, maxZoom);
 		

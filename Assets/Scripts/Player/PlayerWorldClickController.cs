@@ -21,6 +21,7 @@ namespace Player
 		private Ray ray;
 		private Locomotion locomotion;
 		private Interactable currentInteractable;
+		private Stats stats;
 		public static event Action<Vector3> OnMoveTargetSet;
 		public static event Action<Vector3> OnClickedInteractable;
 		private void Start()
@@ -30,6 +31,11 @@ namespace Player
 			locomotion = GetComponent<Locomotion>();
 			if (inputHandler == null || playerCamera == null || locomotion == null)
 				Debug.LogError("PlayerWorldClickController: Missing required component");
+		}
+
+		private void Awake()
+		{
+			stats = GetComponent<Stats>();
 		}
 
 		private void Update()
@@ -90,7 +96,7 @@ namespace Player
 		private void Interact()
 		{
 			locomotion.StopMovement();
-			currentInteractable.Interact();
+			currentInteractable.Interact(stats);
 		}
 	}
 }

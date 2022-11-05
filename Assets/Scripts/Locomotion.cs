@@ -31,7 +31,7 @@ public class Locomotion : MonoBehaviour
 	private void Update()
 	{
 		UpdateCurrentSpeed();
-
+		agent.speed = currentTargetSpeed;
 		if (isManualRotation) RotateTowardsTarget();
 	}
 
@@ -52,10 +52,10 @@ public class Locomotion : MonoBehaviour
 	{
 		if (currentTarget == null)
 		{
-			isManualRotation= false;
+			isManualRotation = false;
 			return;
 		}
-		
+
 		Vector3 direction = currentTarget.position - transform.position;
 		direction.Normalize();
 		Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
@@ -89,8 +89,6 @@ public class Locomotion : MonoBehaviour
 		agent.stoppingDistance = target.GetInteractionRadius() * 0.8f;
 	}
 
-	public void SetRun(bool isRunning)
-	{
-		currentTargetSpeed = isRunning ? runSpeed : walkSpeed;
-	}
+	public void SetRun(bool isRunning)=>currentTargetSpeed = isRunning ? runSpeed : walkSpeed;
+	
 }

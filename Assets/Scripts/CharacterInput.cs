@@ -80,6 +80,33 @@ public partial class @CharacterInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ShiftClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""5eb25ace-8dff-4d12-a640-713c8c3ddd1b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""I"",
+                    ""type"": ""Button"",
+                    ""id"": ""f2c6de7e-23a4-445c-a331-d4d95fccc522"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Esc"",
+                    ""type"": ""Button"",
+                    ""id"": ""ae7b4768-bf98-4b26-9f91-5fa22c234809"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -148,6 +175,39 @@ public partial class @CharacterInput : IInputActionCollection2, IDisposable
                     ""action"": ""MousePosition"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""718b8a52-acee-4a94-b3d8-b6b3d058d007"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShiftClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b3196d49-d904-4a21-b6d8-5babaf6c3bab"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""I"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""91ec3216-1e5f-4f3c-b260-2c0db4128f12"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Esc"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -162,6 +222,9 @@ public partial class @CharacterInput : IInputActionCollection2, IDisposable
         m_Default_MouseScroll = m_Default.FindAction("MouseScroll", throwIfNotFound: true);
         m_Default_MouseX = m_Default.FindAction("MouseX", throwIfNotFound: true);
         m_Default_MousePosition = m_Default.FindAction("MousePosition", throwIfNotFound: true);
+        m_Default_ShiftClick = m_Default.FindAction("ShiftClick", throwIfNotFound: true);
+        m_Default_I = m_Default.FindAction("I", throwIfNotFound: true);
+        m_Default_Esc = m_Default.FindAction("Esc", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -227,6 +290,9 @@ public partial class @CharacterInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Default_MouseScroll;
     private readonly InputAction m_Default_MouseX;
     private readonly InputAction m_Default_MousePosition;
+    private readonly InputAction m_Default_ShiftClick;
+    private readonly InputAction m_Default_I;
+    private readonly InputAction m_Default_Esc;
     public struct DefaultActions
     {
         private @CharacterInput m_Wrapper;
@@ -237,6 +303,9 @@ public partial class @CharacterInput : IInputActionCollection2, IDisposable
         public InputAction @MouseScroll => m_Wrapper.m_Default_MouseScroll;
         public InputAction @MouseX => m_Wrapper.m_Default_MouseX;
         public InputAction @MousePosition => m_Wrapper.m_Default_MousePosition;
+        public InputAction @ShiftClick => m_Wrapper.m_Default_ShiftClick;
+        public InputAction @I => m_Wrapper.m_Default_I;
+        public InputAction @Esc => m_Wrapper.m_Default_Esc;
         public InputActionMap Get() { return m_Wrapper.m_Default; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -264,6 +333,15 @@ public partial class @CharacterInput : IInputActionCollection2, IDisposable
                 @MousePosition.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnMousePosition;
                 @MousePosition.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnMousePosition;
                 @MousePosition.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnMousePosition;
+                @ShiftClick.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnShiftClick;
+                @ShiftClick.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnShiftClick;
+                @ShiftClick.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnShiftClick;
+                @I.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnI;
+                @I.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnI;
+                @I.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnI;
+                @Esc.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnEsc;
+                @Esc.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnEsc;
+                @Esc.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnEsc;
             }
             m_Wrapper.m_DefaultActionsCallbackInterface = instance;
             if (instance != null)
@@ -286,6 +364,15 @@ public partial class @CharacterInput : IInputActionCollection2, IDisposable
                 @MousePosition.started += instance.OnMousePosition;
                 @MousePosition.performed += instance.OnMousePosition;
                 @MousePosition.canceled += instance.OnMousePosition;
+                @ShiftClick.started += instance.OnShiftClick;
+                @ShiftClick.performed += instance.OnShiftClick;
+                @ShiftClick.canceled += instance.OnShiftClick;
+                @I.started += instance.OnI;
+                @I.performed += instance.OnI;
+                @I.canceled += instance.OnI;
+                @Esc.started += instance.OnEsc;
+                @Esc.performed += instance.OnEsc;
+                @Esc.canceled += instance.OnEsc;
             }
         }
     }
@@ -298,5 +385,8 @@ public partial class @CharacterInput : IInputActionCollection2, IDisposable
         void OnMouseScroll(InputAction.CallbackContext context);
         void OnMouseX(InputAction.CallbackContext context);
         void OnMousePosition(InputAction.CallbackContext context);
+        void OnShiftClick(InputAction.CallbackContext context);
+        void OnI(InputAction.CallbackContext context);
+        void OnEsc(InputAction.CallbackContext context);
     }
 }

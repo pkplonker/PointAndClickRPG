@@ -20,7 +20,9 @@ public class InputHandler : Singleton<InputHandler>
 	public Vector2 mousePosition { get; private set; }
 	public float mouseX { get; private set; }
 	public float mouseScroll { get; private set; }
-
+	public bool esc { get; private set; }
+	public bool keyI { get; private set; }
+	public bool shiftKey { get; private set; }
 	private void OnDisable()
 	{
 		characterInput.Disable();
@@ -38,6 +40,11 @@ public class InputHandler : Singleton<InputHandler>
 		characterInput.Default.MouseScroll.performed += _ => mouseScroll = _.ReadValue<float>();
 		characterInput.Default.MouseX.performed += _ => mouseX =_.ReadValue<float>();
 		characterInput.Default.MousePosition.performed += _ => mousePosition = _.ReadValue<Vector2>();
+		characterInput.Default.I.performed += _ => keyI = true;
+		characterInput.Default.Esc.performed += _ => esc = true;
+		characterInput.Default.ShiftClick.started += _ => shiftKey = true;
+		characterInput.Default.ShiftClick.canceled += _ => shiftKey = false;
+
 	}
 
 
@@ -45,6 +52,8 @@ public class InputHandler : Singleton<InputHandler>
 	{
 		leftClick = false;
 		rightClick = false;
+		keyI = false;
+		esc = false;
 		mouseScroll = 0;
 	}
 }

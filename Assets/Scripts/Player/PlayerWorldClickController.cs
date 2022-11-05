@@ -90,7 +90,8 @@ namespace Player
 			{
 				currentInteractable.Focus(this);
 				OnClickedInteractable?.Invoke(interactable.transform.position);
-			}
+				locomotion.SetManualRotation(currentInteractable);
+			}else locomotion.SetAutoRotation();
 			
 
 		}

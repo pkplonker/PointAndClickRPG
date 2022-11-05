@@ -38,4 +38,6 @@ public abstract class Interactable : MonoBehaviour
 	
 	
 	public double GetInteractionRange() => interactionRangeSqr;
+
+	public float GetInteractionRadius() => interactionRadius;
 }

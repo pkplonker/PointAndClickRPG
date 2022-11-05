@@ -6,10 +6,10 @@ using UnityEngine;
 
 public abstract class Interactable : MonoBehaviour
 {
-	[SerializeField] public float interactionRadius { get; private set; } = 3f;
+	[field:SerializeField] public float interactionRadius { get; private set; } = 2f;
 	private float interactionRangeSqr;
 	protected PlayerWorldClickController targetter;
-	private bool interactedWith = false;
+	protected bool interactedWith = false;
 	private void Awake()
 	{
 		interactionRangeSqr = interactionRadius * interactionRadius;

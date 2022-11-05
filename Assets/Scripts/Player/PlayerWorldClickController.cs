@@ -2,6 +2,7 @@
 // Copyright (C) 2022 Stuart Heath. All rights reserved.
 //
 
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -20,7 +21,8 @@ namespace Player
 		private Ray ray;
 		private Locomotion locomotion;
 		private Interactable currentInteractable;
-
+		public static event Action<Vector3> OnMoveTargetSet;
+		public static event Action<Vector3> OnClickedInteractable;
 		private void Start()
 		{
 			inputHandler = InputHandler.Instance;
@@ -39,8 +41,10 @@ namespace Player
 				    currentInteractable.GetInteractionRange())
 				{
 					Interact();
+				}  else if (currentInteractable!=null)
+				{
+					locomotion.Move(currentInteractable.transform.position);
 				}
-				else locomotion.Move(hit.point);
 			}
 			else
 			{
@@ -58,17 +62,29 @@ namespace Player
 				}
 				else
 				{
-					SetFocus(null);
-					locomotion.Move(hit.point);
+					MoveToNavigationPoint();
 				}
 			}
+		}
+
+		private void MoveToNavigationPoint()
+		{
+			SetFocus(null);
+			locomotion.Move(hit.point);
+			OnMoveTargetSet?.Invoke(hit.point);
 		}
 
 		private void SetFocus(Interactable interactable)
 		{
 			if (currentInteractable != null) currentInteractable.Defocus(this);
 			currentInteractable = interactable;
-			if(currentInteractable!= null) currentInteractable.Focus(this);
+			if (currentInteractable != null)
+			{
+				currentInteractable.Focus(this);
+				OnClickedInteractable?.Invoke(interactable.transform.position);
+			}
+			
+
 		}
 
 		private void Interact()

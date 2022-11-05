@@ -26,7 +26,9 @@ namespace Player
 		public static event Action<Vector3> OnClickedInteractable;
 		private void Start()
 		{
-			inputHandler = InputHandler.Instance;
+			stats = GetComponent<Stats>();
+			inputHandler = InputHandler.instance;
+			if(inputHandler==null) Debug.LogError("No InputHandler found");
 			playerCamera = FindObjectOfType<Camera>();
 			locomotion = GetComponent<Locomotion>();
 			if (inputHandler == null || playerCamera == null || locomotion == null)
@@ -35,7 +37,7 @@ namespace Player
 
 		private void Awake()
 		{
-			stats = GetComponent<Stats>();
+			
 		}
 
 		private void Update()

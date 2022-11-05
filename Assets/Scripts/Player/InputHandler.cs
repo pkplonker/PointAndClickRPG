@@ -10,7 +10,7 @@ using UnityEngine.InputSystem;
 /// <summary>
 ///InputHandler full description
 /// </summary>
-public class InputHandler : GenericUnitySingleton<InputHandler>
+public class InputHandler : Singleton<InputHandler>
 {
 	private CharacterInput characterInput;
 	

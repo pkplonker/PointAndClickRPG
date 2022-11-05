@@ -144,6 +144,7 @@ public class Inventory : MonoBehaviour
 		else if (slots[receiver].item == null)
 		{
 			slots[receiver].Add(slots[sender].item, slots[sender].amount);
+			slots[sender].Remove(slots[sender].amount);
 		}
 		else
 		{

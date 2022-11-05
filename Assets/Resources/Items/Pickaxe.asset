@@ -15,7 +15,6 @@ MonoBehaviour:
   id: 
   itemName: Pickaxe
   description: This is an pickaxe
-  icon: {fileID: 21300000, guid: d2e8d149de37d45769237ec61e75cd34, type: 3}
+  sprite: {fileID: 21300000, guid: 763bdf500c5c24f698f8e1839ab00640, type: 3}
   maxStack: 2147483647
-  isStackable: 1
   prefab: {fileID: 381045187211364660, guid: 48cfe2027ddb857468b97d7d217aa256, type: 3}

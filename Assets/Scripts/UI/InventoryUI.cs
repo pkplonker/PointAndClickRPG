@@ -13,21 +13,29 @@ namespace UI
 
 		private Inventory inventory;
 
-	
+
+		private void Awake()
+		{
+		
+		}
 
 		private void Start()
 		{
+			
+			inventory = PlayerManager.instance.GetComponent<Inventory>();
 			if (inventory == null)
 			{
 				Debug.LogWarning("Missing inventory");
 				return;
 			}
+			inventory.InventoryChanged += UpdateUI;
+
+			SetUpSlots();
+
 		}
 
 		private void OnEnable()
 		{
-			SetUpSlots();
-			inventory.InventoryChanged += UpdateUI;
 		}
 
 	

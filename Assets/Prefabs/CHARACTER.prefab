@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5526919259720567843}
   - component: {fileID: 5526919259720567852}
   - component: {fileID: 5526919259720567853}
+  - component: {fileID: 1347984583}
   m_Layer: 0
   m_Name: CHARACTER
   m_TagString: Player
@@ -127,6 +128,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b12d8bd987c5bd4a9ce6eb1adfd34bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <slots>k__BackingField: []
+  capacity: 30
+--- !u!114 &1347984583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5526919259720567847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66566fa8d1968e740a17c4a1d7181e81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &3755796572038021505

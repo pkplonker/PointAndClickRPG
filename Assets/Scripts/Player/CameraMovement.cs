@@ -28,7 +28,7 @@ public class CameraMovement : MonoBehaviour
 		playerCamera = GetComponentInChildren<Camera>();
 		if(!playerCamera) Debug.LogError("Camera not found");
 		currentCameraZoom =  (maxZoom-minZoom)/2;
-		inputHandler = InputHandler.Instance;
+		inputHandler = InputHandler.instance;
 	}
 
 	private void Update()

@@ -14,9 +14,13 @@ namespace Items
 		public string id = "";
 		public string itemName = "";
 		public string description = "";
-		public Sprite icon = null;
+		public Sprite sprite = null;
 		public int maxStack = int.MaxValue;
-		public bool isStackable = true;
 		public GameObject prefab = null;
+
+		public void Use(Inventory inventory)
+		{
+			throw new System.NotImplementedException();
+		}
 	}
 }

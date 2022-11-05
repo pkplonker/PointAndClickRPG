@@ -6,7 +6,7 @@ namespace Interactables
 	public class Pickup : Interactable
 	{
 		[field: SerializeField] public ItemBase item { get; private set; }
-
+		[SerializeField] private int itemCount = 1;
 		public override bool Interact(Stats stats)
 		{
 			if (base.Interact(stats) == false)
@@ -22,12 +22,15 @@ namespace Interactables
 		private bool PickupItem(Inventory inventory)
 		{
 			if (inventory == null) return false;
-			if( inventory.Add(item))
+			var remainingCount = inventory.Add(item);
+			if(remainingCount==0)
 			{
-				Debug.Log("Picked up " + item.name);
+				Debug.Log("Picked up all" + item.name);
 				Destroy(gameObject);
 				return true;
 			}
+			Debug.Log("Picked up " + (itemCount - remainingCount) + " of " + item.name);
+			
 			return false;
 		}
 	}

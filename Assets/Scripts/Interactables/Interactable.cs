@@ -6,20 +6,21 @@ using UnityEngine;
 
 public abstract class Interactable : MonoBehaviour
 {
-	[SerializeField] public float interactionRadius { get; private set; } = 3f;
+	[field:SerializeField] public float interactionRadius { get; private set; } = 2f;
 	private float interactionRangeSqr;
 	protected PlayerWorldClickController targetter;
-	private bool interactedWith = false;
+	protected bool interactedWith = false;
 	private void Awake()
 	{
 		interactionRangeSqr = interactionRadius * interactionRadius;
 	}
 
-	public virtual void Interact()
+	public virtual bool Interact(Stats stats)
 	{
-		if (interactedWith) return;
+		if (interactedWith) return false;
 		Debug.Log("Interacting with " + transform.name);
 		interactedWith = true;
+		return true;
 	}
 
 	public virtual void Focus(PlayerWorldClickController player)

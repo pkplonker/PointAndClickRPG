@@ -2,6 +2,7 @@
 // Copyright (C) 2022 Stuart Heath. All rights reserved.
 //
 
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -20,14 +21,23 @@ namespace Player
 		private Ray ray;
 		private Locomotion locomotion;
 		private Interactable currentInteractable;
-
+		private Stats stats;
+		public static event Action<Vector3> OnMoveTargetSet;
+		public static event Action<Vector3> OnClickedInteractable;
 		private void Start()
 		{
-			inputHandler = InputHandler.Instance;
+			stats = GetComponent<Stats>();
+			inputHandler = InputHandler.instance;
+			if(inputHandler==null) Debug.LogError("No InputHandler found");
 			playerCamera = FindObjectOfType<Camera>();
 			locomotion = GetComponent<Locomotion>();
 			if (inputHandler == null || playerCamera == null || locomotion == null)
 				Debug.LogError("PlayerWorldClickController: Missing required component");
+		}
+
+		private void Awake()
+		{
+			
 		}
 
 		private void Update()
@@ -39,8 +49,10 @@ namespace Player
 				    currentInteractable.GetInteractionRange())
 				{
 					Interact();
+				}  else if (currentInteractable!=null)
+				{
+					locomotion.Move(currentInteractable.transform.position);
 				}
-				else locomotion.Move(hit.point);
 			}
 			else
 			{
@@ -58,23 +70,35 @@ namespace Player
 				}
 				else
 				{
-					SetFocus(null);
-					locomotion.Move(hit.point);
+					MoveToNavigationPoint();
 				}
 			}
+		}
+
+		private void MoveToNavigationPoint()
+		{
+			SetFocus(null);
+			locomotion.Move(hit.point);
+			OnMoveTargetSet?.Invoke(hit.point);
 		}
 
 		private void SetFocus(Interactable interactable)
 		{
 			if (currentInteractable != null) currentInteractable.Defocus(this);
 			currentInteractable = interactable;
-			if(currentInteractable!= null) currentInteractable.Focus(this);
+			if (currentInteractable != null)
+			{
+				currentInteractable.Focus(this);
+				OnClickedInteractable?.Invoke(interactable.transform.position);
+			}
+			
+
 		}
 
 		private void Interact()
 		{
 			locomotion.StopMovement();
-			currentInteractable.Interact();
+			currentInteractable.Interact(stats);
 		}
 	}
 }

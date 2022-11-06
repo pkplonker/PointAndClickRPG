@@ -27,6 +27,7 @@ namespace Stuart.UI
       public void Show(string content, string header ="")
       {
          if(cor!=null)StopCoroutine(cor);
+         if (string.IsNullOrEmpty(content) && string.IsNullOrEmpty(header)) return;
          cor = StartCoroutine(ShowCor(content,header));
       }
 

@@ -50,14 +50,12 @@ namespace UI
 
 		private void OnMoveTargetSet(Vector3 position)
 		{
-			Debug.Log("showing move ui");
 			image.color = moveColor;
 			Show(position);
 		}
 
 		private void OnClickedInteractable(Vector3 position)
 		{
-			Debug.Log("showing interact ui");
 			image.color = interactColor;
 			Show(position);
 		}

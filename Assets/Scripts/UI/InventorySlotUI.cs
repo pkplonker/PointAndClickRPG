@@ -8,13 +8,15 @@ using UnityEngine.UI;
 
 namespace UI
 {
-	public class InventorySlotUI : MonoBehaviour
+	public class InventorySlotUI : MonoBehaviour, iToolTipable
 	{
 		[SerializeField] private TextMeshProUGUI textMesh;
 		[SerializeField] private Image iconImage;
 		private Button button;
 		private ItemBase item;
 		public Inventory inventory { get; private set; }
+		public event Action<TooltipData> ToolTipDataChanged;
+
 		public int index { get; private set; }
 
 		private void Start()
@@ -39,8 +41,10 @@ namespace UI
 
 		public void UpdateUI( ItemBase item, int quantity)
 		{
+			
 			if (item == null) ClearUI();
 			else AddItemToUI( item,quantity);
+			ToolTipDataChanged?.Invoke( new TooltipData(item));
 		}
 
 		private void ClearUI()
@@ -75,5 +79,11 @@ namespace UI
 
 		}
 
+
+		public TooltipData GetTooltipData()
+		{
+			if(item== null) return null;
+			return new TooltipData(item.name, item.description);
+		}
 	}
 }

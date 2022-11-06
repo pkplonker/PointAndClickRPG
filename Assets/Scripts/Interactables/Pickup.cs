@@ -25,11 +25,9 @@ namespace Interactables
 			var remainingCount = inventory.Add(item);
 			if(remainingCount==0)
 			{
-				Debug.Log("Picked up all" + item.name);
 				Destroy(gameObject);
 				return true;
 			}
-			Debug.Log("Picked up " + (itemCount - remainingCount) + " of " + item.name);
 			
 			return false;
 		}

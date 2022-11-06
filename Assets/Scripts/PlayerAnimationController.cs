@@ -21,4 +21,9 @@ public class PlayerAnimationController : MonoBehaviour
 	private void OnDisable() => locomotion.SpeedChanged -= CharacterSpeedChanged;
 
 	private void CharacterSpeedChanged(float newSpeed) => animator.SetFloat(Movement, newSpeed);
+
+	public void TriggerSkillAnimation(string animationName)
+	{
+		animator.SetTrigger(animationName);
+	}
 }

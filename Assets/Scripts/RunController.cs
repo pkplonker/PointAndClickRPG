@@ -58,6 +58,7 @@ public class RunController : MonoBehaviour
 				isRunning = false;
 				currentRunEnergy = 0;
 			}
+			OnRunEnergyChanged?.Invoke(currentRunEnergy);
 			StartCoroutine(RunningCor());
 		}
 
@@ -74,10 +75,7 @@ public class RunController : MonoBehaviour
 			if (currentRunEnergy > maxRunEnergy) currentRunEnergy = maxRunEnergy;
 		}
 
-		public void LoadState(object data)
-		{
-			OnRunEnergyChanged?.Invoke(currentRunEnergy);
-		}
+	
 
 		public void RequestRun(bool isRequested)
 		{

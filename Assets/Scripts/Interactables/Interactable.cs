@@ -10,10 +10,10 @@ public abstract class Interactable : MonoBehaviour
 	private float interactionRangeSqr;
 	protected PlayerWorldClickController targetter;
 	protected bool interactedWith = false;
-	private void Awake()
-	{
-		interactionRangeSqr = interactionRadius * interactionRadius;
-	}
+	private void Awake()=>interactionRangeSqr = interactionRadius * interactionRadius;
+	
+
+	protected virtual void Start() { }
 
 	public virtual bool Interact(Stats stats)
 	{
